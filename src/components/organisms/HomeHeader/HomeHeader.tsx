@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Octicons';
 import {useTheme} from '../../../providers/ThemeProvider';
 
 const HomeHeader = () => {
-  const {theme} = useTheme();
+  const theme = useTheme();
   return (
     <S.Container>
       <S.ActionRow>

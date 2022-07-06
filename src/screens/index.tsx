@@ -10,7 +10,7 @@ import {useTheme} from '../providers/ThemeProvider';
 const Stack = createNativeStackNavigator();
 
 const Screens = () => {
-  const {theme, isDarkMode} = useTheme();
+  const theme = useTheme();
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: theme.colors.background}}

@@ -4,12 +4,9 @@ import {ThemeProvider as StyledThemeProvider} from 'styled-components';
 
 import {LightTheme, DarkTheme} from './../themes';
 import {useColorScheme} from 'react-native';
-import {ThemeContextProps} from '../interfaces/providers';
+import {CustomTheme} from '../interfaces/providers';
 
-const ThemeContext = createContext<ThemeContextProps>({
-  theme: LightTheme,
-  isDarkMode: false,
-});
+const ThemeContext = createContext<CustomTheme>(LightTheme);
 
 const ThemeProvider = ({children}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -18,7 +15,7 @@ const ThemeProvider = ({children}) => {
     changeBarColors(isDarkMode);
   }, [isDarkMode]);
   return (
-    <ThemeContext.Provider value={{theme, isDarkMode}}>
+    <ThemeContext.Provider value={theme}>
       <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   );

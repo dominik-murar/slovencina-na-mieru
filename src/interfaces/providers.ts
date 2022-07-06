@@ -7,8 +7,3 @@ export type CustomTheme = Theme & {
     secondary: string;
   };
 };
-
-export interface ThemeContextProps {
-  theme: CustomTheme;
-  isDarkMode: boolean;
-}

@@ -50,7 +50,7 @@ const data = [
 ];
 
 const Home = () => {
-  const {theme} = useTheme();
+  const theme = useTheme();
   return (
     <FlatList
       data={data}
