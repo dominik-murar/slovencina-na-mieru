@@ -6,6 +6,8 @@ const DarkTheme: CustomTheme = {
   barStyle: 'light-content',
   colors: {
     ...NavDarkTheme.colors,
+    primary: '#1E5B9F',
+    secondary: '#D64B4B',
     background: '#121212',
     text: '#ffffff',
   },

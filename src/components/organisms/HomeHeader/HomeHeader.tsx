@@ -1,13 +1,15 @@
 import React from 'react';
 import HomeStats from '../../molecules/HomeStats/HomeStats';
 import * as S from './HomeHeader.styles';
-import {Text} from 'react-native';
+import Icon from 'react-native-vector-icons/Octicons';
+import {useTheme} from '../../../providers/ThemeProvider';
 
 const HomeHeader = () => {
+  const {theme} = useTheme();
   return (
     <S.Container>
       <S.ActionRow>
-        <Text>Blabla</Text>
+        <Icon name="gear" size={20} color={theme} />
       </S.ActionRow>
       <HomeStats />
     </S.Container>
