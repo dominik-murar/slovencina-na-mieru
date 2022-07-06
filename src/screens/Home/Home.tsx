@@ -1,5 +1,6 @@
 import React from 'react';
 import {FlatList} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import MainCard from '../../components/atoms/MainCard/MainCard';
 import HomeHeader from '../../components/organisms/HomeHeader/HomeHeader';
 import {useTheme} from '../../providers/ThemeProvider';
@@ -35,22 +36,11 @@ const data = [
     benefits: ['benefit 1', 'benefit 2', 'benefit 3'],
     locked: true,
   },
-  {
-    key: 6,
-    module: 'MODUL 6',
-    benefits: ['benefit 1', 'benefit 2', 'benefit 3'],
-    locked: true,
-  },
-  {
-    key: 7,
-    module: 'MODUL 7',
-    benefits: ['benefit 1', 'benefit 2', 'benefit 3'],
-    locked: true,
-  },
 ];
 
 const Home = () => {
   const theme = useTheme();
+  const {bottom: insetBottom} = useSafeAreaInsets();
   return (
     <FlatList
       data={data}
@@ -63,7 +53,7 @@ const Home = () => {
         flexGrow: 2,
         paddingHorizontal: 24,
         paddingTop: 24,
-        paddingBottom: 8,
+        paddingBottom: insetBottom + 8,
         backgroundColor: theme.colors.background,
       }}
     />

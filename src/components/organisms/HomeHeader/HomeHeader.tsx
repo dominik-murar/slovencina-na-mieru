@@ -9,7 +9,7 @@ const HomeHeader = () => {
   return (
     <S.Container>
       <S.ActionRow>
-        <Icon name="gear" size={20} color={theme} />
+        <Icon name="gear" size={20} color={theme.colors.text} />
       </S.ActionRow>
       <HomeStats />
     </S.Container>

@@ -12,8 +12,11 @@ const MainCard = ({item}: Iprops) => {
       disabled={item.locked}
       onPress={() => console.log(item.module, 'pressed')}>
       <S.RowContainer>
+        <S.Heading>{item.module}</S.Heading>
+        {item.locked && <S.LockedMessage>(chýba XY bodov)</S.LockedMessage>}
+      </S.RowContainer>
+      <S.RowContainer>
         <S.InfoContainer>
-          <S.Heading>{item.module}</S.Heading>
           <S.FeatureListItem>{item.benefits[0]}</S.FeatureListItem>
           <S.FeatureListItem>{item.benefits[1]}</S.FeatureListItem>
           <S.FeatureListItem>{item.benefits[2]}</S.FeatureListItem>
@@ -27,9 +30,6 @@ const MainCard = ({item}: Iprops) => {
           <Icon name="lock" size={24} color="white" />
         )}
       </S.RowContainer>
-      {item.locked && (
-        <S.LockedMessage>(ešte XY bodov pre odomknutie)</S.LockedMessage>
-      )}
     </S.Card>
   );
 };

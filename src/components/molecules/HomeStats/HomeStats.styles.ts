@@ -9,3 +9,7 @@ export const TextPrimary = styled.Text`
   font-size: 40px;
   color: ${({theme}) => theme.colors.text};
 `;
+
+export const Text = styled.Text`
+  color: ${({theme}) => theme.colors.text};
+`;

@@ -10,12 +10,12 @@ export const Card = styled.TouchableOpacity<CardProps>`
   padding: 24px;
   margin-bottom: 16px;
   opacity: ${({disabled}) => (disabled ? 0.6 : 1)};
-  align-items: flex-end;
 `;
 
 export const RowContainer = styled.View`
   flex-direction: row;
   align-items: flex-end;
+  justify-content: space-between;
 `;
 
 export const InfoContainer = styled.View`
@@ -27,6 +27,7 @@ export const Heading = styled.Text`
   font-size: 24px;
   font-weight: bold;
   color: white;
+  padding-right: 8px;
 `;
 
 export const FeatureListItem = styled.Text`
@@ -46,5 +47,4 @@ export const EnterButton = styled.View`
 export const LockedMessage = styled.Text`
   font-size: 14px;
   color: white;
-  padding-top: 8px;
 `;
