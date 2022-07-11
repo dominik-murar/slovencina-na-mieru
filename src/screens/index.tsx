@@ -6,6 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Home from './Home/Home';
 import {useTheme} from '../providers/ThemeProvider';
+import Module from './Module/Module';
+import Header from '../components/atoms/Header/Header';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +24,15 @@ const Screens = () => {
             name="Home"
             component={Home}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Module"
+            component={Module}
+            options={{
+              header: ({navigation}) => (
+                <Header title="MODUL" navigation={navigation} />
+              ),
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

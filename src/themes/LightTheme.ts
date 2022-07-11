@@ -7,6 +7,7 @@ const LightTheme: CustomTheme = {
   colors: {
     ...NavDefaultTheme.colors,
     primary: '#1E5B9F',
+    primaryOpaq: '#1E5B9F99',
     secondary: '#D64B4B',
     background: '#ffffff',
     text: '#121212',

@@ -1,9 +1,8 @@
 import React from 'react';
-import {FlatList} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import MainCard from '../../components/atoms/MainCard/MainCard';
 import HomeHeader from '../../components/organisms/HomeHeader/HomeHeader';
-import {useTheme} from '../../providers/ThemeProvider';
+import * as S from './Home.styles';
 
 const data = [
   {
@@ -38,24 +37,15 @@ const data = [
   },
 ];
 
-const Home = () => {
-  const theme = useTheme();
-  const {bottom: insetBottom} = useSafeAreaInsets();
+const Home = ({navigation}) => {
   return (
-    <FlatList
+    <S.FlatList
       data={data}
-      renderItem={MainCard}
+      renderItem={({item}) =>
+        MainCard({item: item, onPress: () => navigation.navigate('Module')})
+      }
       ListHeaderComponent={HomeHeader}
-      ListHeaderComponentStyle={{
-        flexGrow: 1,
-      }}
-      contentContainerStyle={{
-        flexGrow: 2,
-        paddingHorizontal: 24,
-        paddingTop: 24,
-        paddingBottom: insetBottom + 8,
-        backgroundColor: theme.colors.background,
-      }}
+      ListFooterComponent={BottomSafeArea}
     />
   );
 };
