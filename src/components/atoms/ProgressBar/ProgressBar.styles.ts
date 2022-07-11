@@ -6,7 +6,7 @@ interface BarColor {
 }
 
 export const Bar = styled.View<BarColor>`
-  width: ${({width}) => (!!width ? width + '%' : '100%')};
+  width: ${({width}) => (width ? width + '%' : '100%')};
   height: 54px;
   background-color: ${({theme, isSolid}) =>
     isSolid ? theme.colors.primary : theme.colors.primaryOpaq};
