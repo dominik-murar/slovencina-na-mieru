@@ -6,11 +6,12 @@ interface Iprops {
   category: string;
   status: number;
   goal: number;
+  onPress?: () => void;
 }
 
-const OutlinedCard = ({category, status, goal}: Iprops) => {
+const OutlinedCard = ({category, status, goal, onPress}: Iprops) => {
   return (
-    <S.Card onPress={() => console.log(category, 'pressed')}>
+    <S.Card onPress={onPress}>
       <S.Heading>{category}</S.Heading>
       <ProgressBar status={status} goal={goal} />
     </S.Card>

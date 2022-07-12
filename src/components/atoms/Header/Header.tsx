@@ -8,7 +8,7 @@ const Header = ({title, navigation}) => {
   return (
     <S.Container>
       <S.BackButton onPress={() => navigation.goBack()}>
-        <Icon name="chevron-left" size={30} color={theme.colors.text} />
+        <Icon name="chevron-left" size={26} color={theme.colors.text} />
       </S.BackButton>
       <S.Title>{title}</S.Title>
     </S.Container>

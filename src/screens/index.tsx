@@ -8,6 +8,7 @@ import Home from './Home/Home';
 import {useTheme} from '../providers/ThemeProvider';
 import Module from './Module/Module';
 import Header from '../components/atoms/Header/Header';
+import ExerciseWords from './ExerciseWords/ExerciseWords';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,15 @@ const Screens = () => {
             options={{
               header: ({navigation}) => (
                 <Header title="MODUL" navigation={navigation} />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="ExerciseWords"
+            component={ExerciseWords}
+            options={{
+              header: ({navigation}) => (
+                <Header title="Words" navigation={navigation} />
               ),
             }}
           />
