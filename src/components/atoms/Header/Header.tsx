@@ -1,9 +1,9 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Octicons';
-import {useTheme} from '../../../providers/ThemeProvider';
+import { useTheme } from '../../../providers/ThemeProvider';
 import * as S from './Header.styles';
 
-const Header = ({title, navigation}) => {
+const Header = ({ title, navigation }) => {
   const theme = useTheme();
   return (
     <S.Container>

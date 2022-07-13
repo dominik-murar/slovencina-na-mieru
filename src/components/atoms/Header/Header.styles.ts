@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -10,7 +10,7 @@ export const Container = styled.View`
 export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
-  color: ${({theme}) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.text};
   text-align: center;
 `;
 

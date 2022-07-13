@@ -1,14 +1,14 @@
-import React, {createContext, useContext, useEffect} from 'react';
-import {changeBarColors} from 'react-native-immersive-bars';
-import {ThemeProvider as StyledThemeProvider} from 'styled-components';
+import React, { createContext, useContext, useEffect } from 'react';
+import { changeBarColors } from 'react-native-immersive-bars';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
-import {LightTheme, DarkTheme} from './../themes';
-import {useColorScheme} from 'react-native';
-import {CustomTheme} from '../interfaces/providers';
+import { LightTheme, DarkTheme } from './../themes';
+import { useColorScheme } from 'react-native';
+import { CustomTheme } from '../interfaces/providers';
 
 const ThemeContext = createContext<CustomTheme>(LightTheme);
 
-const ThemeProvider = ({children}) => {
+const ThemeProvider = ({ children }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? DarkTheme : LightTheme;
   useEffect(() => {
@@ -25,4 +25,4 @@ const useTheme = () => {
   return useContext(ThemeContext);
 };
 
-export {ThemeProvider, useTheme};
+export { ThemeProvider, useTheme };

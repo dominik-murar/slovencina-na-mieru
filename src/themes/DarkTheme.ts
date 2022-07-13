@@ -1,5 +1,5 @@
-import {DarkTheme as NavDarkTheme} from '@react-navigation/native';
-import {CustomTheme} from '../interfaces/providers';
+import { DarkTheme as NavDarkTheme } from '@react-navigation/native';
+import { CustomTheme } from '../interfaces/providers';
 
 const DarkTheme: CustomTheme = {
   ...NavDarkTheme,

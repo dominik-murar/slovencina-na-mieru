@@ -1,11 +1,11 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {StatusBar} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from './Home/Home';
-import {useTheme} from '../providers/ThemeProvider';
+import { useTheme } from '../providers/ThemeProvider';
 import Module from './Module/Module';
 import Header from '../components/atoms/Header/Header';
 import ExerciseWords from './ExerciseWords/ExerciseWords';
@@ -17,7 +17,7 @@ const Screens = () => {
   const theme = useTheme();
   return (
     <SafeAreaView
-      style={{flex: 1, backgroundColor: theme.colors.background}}
+      style={{ flex: 1, backgroundColor: theme.colors.background }}
       edges={['top', 'left', 'right']}>
       <StatusBar barStyle={theme.barStyle} backgroundColor={'transparent'} />
       <NavigationContainer theme={theme}>
@@ -25,13 +25,13 @@ const Screens = () => {
           <Stack.Screen
             name="Home"
             component={Home}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Module"
             component={Module}
             options={{
-              header: ({navigation}) => (
+              header: ({ navigation }) => (
                 <Header title="MODUL" navigation={navigation} />
               ),
             }}
@@ -40,7 +40,7 @@ const Screens = () => {
             name="ExerciseWords"
             component={ExerciseWords}
             options={{
-              header: ({navigation}) => (
+              header: ({ navigation }) => (
                 <Header title="Words" navigation={navigation} />
               ),
             }}
@@ -49,7 +49,7 @@ const Screens = () => {
             name="ExerciseSentences"
             component={ExerciseSentences}
             options={{
-              header: ({navigation}) => (
+              header: ({ navigation }) => (
                 <Header title="Sentences" navigation={navigation} />
               ),
             }}

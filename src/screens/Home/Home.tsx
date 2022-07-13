@@ -37,12 +37,12 @@ const data = [
   },
 ];
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   return (
     <S.FlatList
       data={data}
-      renderItem={({item}) =>
-        MainCard({item: item, onPress: () => navigation.navigate('Module')})
+      renderItem={({ item }) =>
+        MainCard({ item: item, onPress: () => navigation.navigate('Module') })
       }
       ListHeaderComponent={HomeHeader}
       ListFooterComponent={BottomSafeArea}

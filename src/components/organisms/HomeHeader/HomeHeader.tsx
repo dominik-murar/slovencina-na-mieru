@@ -2,8 +2,8 @@ import React from 'react';
 import HomeStats from '../../molecules/HomeStats/HomeStats';
 import * as S from './HomeHeader.styles';
 import Icon from 'react-native-vector-icons/Octicons';
-import {useTheme} from '../../../providers/ThemeProvider';
-import {TouchableOpacity} from 'react-native';
+import { useTheme } from '../../../providers/ThemeProvider';
+import { TouchableOpacity } from 'react-native';
 
 const HomeHeader = () => {
   const theme = useTheme();

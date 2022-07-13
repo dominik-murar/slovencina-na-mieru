@@ -6,9 +6,9 @@ interface BarColor {
 }
 
 export const Bar = styled.View<BarColor>`
-  width: ${({width}) => (width ? width + '%' : '100%')};
+  width: ${({ width }) => (width ? width + '%' : '100%')};
   height: 44px;
-  background-color: ${({theme, isSolid}) =>
+  background-color: ${({ theme, isSolid }) =>
     isSolid ? theme.colors.primary : theme.colors.primaryOpaq};
   border-radius: 10px;
   justify-content: center;

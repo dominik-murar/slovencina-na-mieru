@@ -8,7 +8,7 @@ export const Container = styled.View`
 
 export const Categories = styled.View``;
 
-export const ScrollView = styled.ScrollView.attrs(({theme}) => ({
+export const ScrollView = styled.ScrollView.attrs(({ theme }) => ({
   contentContainerStyle: {
     flexGrow: 1,
     paddingHorizontal: 24,

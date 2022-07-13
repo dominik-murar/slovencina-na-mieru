@@ -1,8 +1,8 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import Button from '../../components/atoms/Button/Button';
 import Pill from '../../components/atoms/Pill/Pill';
-import {shuffle} from '../../utils/shuffleArray';
+import { shuffle } from '../../utils/shuffleArray';
 import * as S from './ExerciseWords.styles';
 
 const mockData = {
@@ -13,7 +13,7 @@ const mockData = {
   'slovo 5': 'preklad 5',
 };
 
-const ExerciseWords = ({navigation}) => {
+const ExerciseWords = ({ navigation }) => {
   const [activeKey, setActiveKey] = useState('');
   const [activeVal, setActiveVal] = useState('');
   const [isCorrect, setIsCorrect] = useState(false);

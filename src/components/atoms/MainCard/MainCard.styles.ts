@@ -6,10 +6,10 @@ interface CardProps {
 
 export const Card = styled.TouchableOpacity<CardProps>`
   border-radius: 10px;
-  background-color: ${({theme}) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.primary};
   padding: 24px;
   margin-bottom: 16px;
-  opacity: ${({disabled}) => (disabled ? 0.6 : 1)};
+  opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
 `;
 
 export const RowContainer = styled.View`
@@ -39,7 +39,7 @@ export const EnterButton = styled.View`
   height: 40px;
   width: 40px;
   border-radius: 20px;
-  background-color: ${({theme}) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.secondary};
   align-items: center;
   justify-content: center;
 `;

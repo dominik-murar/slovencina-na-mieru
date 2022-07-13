@@ -3,7 +3,7 @@ import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea
 import Button from '../../components/atoms/Button/Button';
 import * as S from './ExerciseSentences.styles';
 
-const ExerciseSentences = ({navigation}) => {
+const ExerciseSentences = ({ navigation }) => {
   return (
     <S.Container>
       <S.ExerciseContainer></S.ExerciseContainer>

@@ -6,7 +6,7 @@ interface Iprops {
   goal: number;
 }
 
-const ProgressBar = ({status, goal}: Iprops) => {
+const ProgressBar = ({ status, goal }: Iprops) => {
   return (
     <S.Bar>
       <S.Status>{`${status}/${goal}`}</S.Status>

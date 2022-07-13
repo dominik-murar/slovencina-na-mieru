@@ -4,7 +4,7 @@ import OutlinedCard from '../../components/atoms/OutlinedCard/OutlinedCard';
 import Button from '../../components/atoms/Button/Button';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 
-const Module = ({navigation}) => {
+const Module = ({ navigation }) => {
   return (
     <S.ScrollView>
       <S.Container>

@@ -9,7 +9,7 @@ interface Iprops {
   onPress?: () => void;
 }
 
-const OutlinedCard = ({category, status, goal, onPress}: Iprops) => {
+const OutlinedCard = ({ category, status, goal, onPress }: Iprops) => {
   return (
     <S.Card onPress={onPress}>
       <S.Heading>{category}</S.Heading>

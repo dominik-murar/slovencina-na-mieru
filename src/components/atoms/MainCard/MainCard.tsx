@@ -3,11 +3,16 @@ import * as S from './MainCard.styles';
 import Icon from 'react-native-vector-icons/Octicons';
 
 interface Iprops {
-  item: {key: number; module: String; benefits: Array<String>; locked: boolean};
+  item: {
+    key: number;
+    module: String;
+    benefits: Array<String>;
+    locked: boolean;
+  };
   onPress: () => void;
 }
 
-const MainCard = ({item, onPress}: Iprops) => {
+const MainCard = ({ item, onPress }: Iprops) => {
   return (
     <S.Card disabled={item.locked} onPress={onPress}>
       <S.RowContainer>
