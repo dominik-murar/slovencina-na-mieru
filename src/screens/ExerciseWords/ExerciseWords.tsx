@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import Button from '../../components/atoms/Button/Button';
 import Pill from '../../components/atoms/Pill/Pill';
@@ -22,8 +22,8 @@ const ExerciseWords = ({navigation}) => {
   const [shuffledKeys] = useState<string[]>(shuffle(Object.keys(mockData)));
   const [shuffledVals] = useState<string[]>(shuffle(Object.values(mockData)));
 
-  const getActiveKey = (item: string) => setActiveKey(item);
-  const getActiveVal = (item: string) => setActiveVal(item);
+  const getActiveKey = useCallback((item: string) => setActiveKey(item), []);
+  const getActiveVal = useCallback((item: string) => setActiveVal(item), []);
 
   useEffect(() => {
     setIsCorrect(false);
@@ -36,7 +36,7 @@ const ExerciseWords = ({navigation}) => {
         setActiveVal('');
       }
     }
-  }, [activeKey, activeVal, nOfCompleted]);
+  }, [activeKey, activeVal]);
 
   return (
     <S.Container>
@@ -44,31 +44,32 @@ const ExerciseWords = ({navigation}) => {
         <S.LeftColumn>
           {shuffledKeys.map(item => (
             <Pill
+              key={item}
               text={item}
               returnActive={getActiveKey}
-              active={activeKey}
-              isCorrect={isCorrect}
+              isActive={activeKey === item}
+              isCorrect={isCorrect && activeKey === item}
             />
           ))}
         </S.LeftColumn>
         <S.RightColumn>
           {shuffledVals.map(item => (
             <Pill
+              key={item}
               text={item}
               returnActive={getActiveVal}
-              active={activeVal}
-              isCorrect={isCorrect}
+              isActive={activeVal === item}
+              isCorrect={isCorrect && activeVal === item}
             />
           ))}
         </S.RightColumn>
       </S.PillsContainer>
-      {nOfCompleted === shuffledKeys.length && (
-        <Button
-          text="Správne! Pokračovať"
-          onPress={() => navigation.navigate('Home')}
-          type="success"
-        />
-      )}
+      <Button
+        text="Správne! Pokračovať"
+        onPress={() => navigation.navigate('Home')}
+        type="success"
+        invisible={nOfCompleted < shuffledKeys.length}
+      />
       <BottomSafeArea />
     </S.Container>
   );

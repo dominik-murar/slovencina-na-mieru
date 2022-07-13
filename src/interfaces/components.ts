@@ -4,11 +4,12 @@ export interface ButtonProps {
   text: string;
   onPress?: () => void;
   type?: ButtonType;
+  invisible?: boolean;
 }
 
 export interface PillProps {
   text: string;
-  active: string;
+  isActive: boolean;
   isCorrect?: boolean;
   returnActive: (item: string) => void;
 }

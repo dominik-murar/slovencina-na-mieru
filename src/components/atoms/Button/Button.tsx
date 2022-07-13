@@ -2,9 +2,13 @@ import React from 'react';
 import {ButtonProps} from '../../../interfaces/components';
 import * as S from './Button.styles';
 
-const Button = ({text, onPress, type = 'default'}: ButtonProps) => {
+const Button = ({text, onPress, type = 'default', invisible}: ButtonProps) => {
   return (
-    <S.Container onPress={onPress} type={type}>
+    <S.Container
+      onPress={onPress}
+      type={type}
+      invisible={invisible}
+      disabled={invisible}>
       <S.Text>{text}</S.Text>
     </S.Container>
   );

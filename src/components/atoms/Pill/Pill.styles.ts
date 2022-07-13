@@ -12,8 +12,7 @@ export const Container = styled.TouchableOpacity<IColors>`
   border-width: 2px;
   border-color: ${({theme}) => theme.colors.primary};
   background-color: ${({backgroundColor}) => backgroundColor};
-  padding-horizontal: 16px;
-  padding-vertical: 8px;
+  padding: 16px;
   margin-bottom: 16px;
   align-self: baseline;
 `;

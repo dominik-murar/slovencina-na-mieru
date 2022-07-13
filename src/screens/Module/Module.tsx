@@ -15,7 +15,12 @@ const Module = ({navigation}) => {
             goal={40}
             onPress={() => navigation.navigate('ExerciseWords')}
           />
-          <OutlinedCard category="Vety" status={51} goal={60} />
+          <OutlinedCard
+            category="Vety"
+            status={51}
+            goal={60}
+            onPress={() => navigation.navigate('ExerciseSentences')}
+          />
           <OutlinedCard category="Otázky a odpovede" status={5} goal={18} />
           <OutlinedCard category="Príbeh" status={1} goal={1} />
         </S.Categories>
