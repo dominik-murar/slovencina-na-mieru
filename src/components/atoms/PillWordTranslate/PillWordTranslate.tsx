@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { PillProps } from '../../../interfaces/components';
+import { PillWordTranslateProps } from '../../../common/interfaces';
 import { useTheme } from '../../../providers/ThemeProvider';
-import * as S from './Pill.styles';
+import * as S from './PillWordTranslate.styles';
 
-const Pill = ({
+const PillWordTranslate = ({
   text,
   isActive,
   isCorrect = false,
   returnActive,
-}: PillProps) => {
+}: PillWordTranslateProps) => {
   const theme = useTheme();
   const [state, setState] = useState<'default' | 'active' | 'correct'>(
     'default',
@@ -48,4 +48,4 @@ const Pill = ({
   );
 };
 
-export default Pill;
+export default PillWordTranslate;

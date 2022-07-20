@@ -4,9 +4,11 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import { LightTheme, DarkTheme } from './../themes';
 import { useColorScheme } from 'react-native';
-import { CustomTheme } from '../interfaces/providers';
+import { CustomTheme } from '../common/interfaces';
 
 const ThemeContext = createContext<CustomTheme>(LightTheme);
+
+const useTheme = () => useContext(ThemeContext);
 
 const ThemeProvider = ({ children }) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -19,10 +21,6 @@ const ThemeProvider = ({ children }) => {
       <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   );
-};
-
-const useTheme = () => {
-  return useContext(ThemeContext);
 };
 
 export { ThemeProvider, useTheme };

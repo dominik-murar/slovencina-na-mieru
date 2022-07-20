@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import Button from '../../components/atoms/Button/Button';
-import Pill from '../../components/atoms/Pill/Pill';
+import PillWordTranslate from '../../components/atoms/PillWordTranslate/PillWordTranslate';
 import { shuffle } from '../../utils/shuffleArray';
 import * as S from './ExerciseWords.styles';
 
@@ -40,10 +40,11 @@ const ExerciseWords = ({ navigation }) => {
 
   return (
     <S.Container>
+      <S.Text>Spoj slovo s jeho prekladom</S.Text>
       <S.PillsContainer>
         <S.LeftColumn>
           {shuffledKeys.map(item => (
-            <Pill
+            <PillWordTranslate
               key={item}
               text={item}
               returnActive={getActiveKey}
@@ -54,7 +55,7 @@ const ExerciseWords = ({ navigation }) => {
         </S.LeftColumn>
         <S.RightColumn>
           {shuffledVals.map(item => (
-            <Pill
+            <PillWordTranslate
               key={item}
               text={item}
               returnActive={getActiveVal}

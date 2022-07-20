@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonProps } from '../../../interfaces/components';
+import { ButtonProps } from '../../../common/interfaces';
 import * as S from './Button.styles';
 
 const Button = ({

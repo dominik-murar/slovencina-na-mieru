@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { ButtonType } from '../../../interfaces/components';
+import { ButtonType } from '../../../common/interfaces';
 
 interface Button {
   type: ButtonType;

@@ -1,5 +1,5 @@
 import { DefaultTheme as NavDefaultTheme } from '@react-navigation/native';
-import { CustomTheme } from '../interfaces/providers';
+import { CustomTheme } from '../common/interfaces';
 
 const LightTheme: CustomTheme = {
   ...NavDefaultTheme,

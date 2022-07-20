@@ -10,6 +10,7 @@ import Module from './Module/Module';
 import Header from '../components/atoms/Header/Header';
 import ExerciseWords from './ExerciseWords/ExerciseWords';
 import ExerciseSentences from './ExerciseSentences/ExerciseSentences';
+import ExerciseQuestions from './ExerciseQuestions/ExerciseQuestions';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +52,15 @@ const Screens = () => {
             options={{
               header: ({ navigation }) => (
                 <Header title="Sentences" navigation={navigation} />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="ExerciseQuestions"
+            component={ExerciseQuestions}
+            options={{
+              header: ({ navigation }) => (
+                <Header title="Questions" navigation={navigation} />
               ),
             }}
           />
