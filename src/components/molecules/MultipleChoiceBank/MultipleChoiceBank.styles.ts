@@ -5,6 +5,6 @@ export const Container = styled.View`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  padding-bottom: 8px;
+  padding-bottom: 32px;
   padding-top: 16px;
 `;

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { PillWordTranslateProps } from '../../../common/interfaces';
+import { useExercise } from '../../../providers/ExerciseProvider';
 import { useTheme } from '../../../providers/ThemeProvider';
 import * as S from './PillWordTranslate.styles';
 
@@ -7,9 +8,10 @@ const PillWordTranslate = ({
   text,
   isActive,
   isCorrect = false,
-  returnActive,
+  type,
 }: PillWordTranslateProps) => {
   const theme = useTheme();
+  const { setActiveKey, setActiveVal } = useExercise();
   const [state, setState] = useState<'default' | 'active' | 'correct'>(
     'default',
   );
@@ -18,6 +20,18 @@ const PillWordTranslate = ({
     active: theme.colors.primary,
     correct: theme.colors.primaryOpaq,
   };
+
+  const setActive = useCallback(
+    (value: string) => {
+      switch (type) {
+        case 'key':
+          return setActiveKey(value);
+        case 'val':
+          return setActiveVal(value);
+      }
+    },
+    [type],
+  );
 
   useEffect(() => {
     if (state === 'correct') return;
@@ -28,14 +42,14 @@ const PillWordTranslate = ({
     }
     if (isCorrect) {
       setState('correct');
-      returnActive('');
+      setActive('');
     }
-  }, [isCorrect, isActive, state, returnActive]);
+  }, [isCorrect, isActive, state]);
 
   const handlePress = useCallback(() => {
     if (state === 'correct') return;
-    if (state === 'default') return returnActive(text);
-    if (state === 'active') return returnActive('');
+    if (state === 'default') return setActive(text);
+    if (state === 'active') return setActive('');
   }, [state]);
 
   return (

@@ -17,5 +17,6 @@ export const CenterContainer = styled.View`
 export const Text = styled.Text`
   color: ${({ theme }) => theme.colors.text};
   font-size: 16px;
+  font-style: italic;
   padding-bottom: 24px;
 `;

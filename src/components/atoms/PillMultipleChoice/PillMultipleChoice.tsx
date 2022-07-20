@@ -4,18 +4,22 @@ import { useExercise } from '../../../providers/ExerciseProvider';
 import * as S from './PillMultipleChoice.styles';
 
 const PillMultipleChoice = ({ itemKey }: PillMultipleChoiceProps) => {
-  const { sentenceWordBank, updateSentenceWordBank } = useExercise();
+  const { multipleOptionsMap, updateMultipleOptionsMap } = useExercise();
 
-  const wordObj = sentenceWordBank.get(itemKey);
+  const wordObj = multipleOptionsMap.get(itemKey);
   const word = wordObj?.word || '';
   const handlePress = () => {
-    if (wordObj?.isUsed) {
-      // handle press in Sentence Input box
-      updateSentenceWordBank(itemKey, { word: word, isUsed: false });
+    if (wordObj?.isSelected) {
+      updateMultipleOptionsMap(itemKey, { word: word, isSelected: false });
+
       // removeWord(itemKey);
     } else {
-      // handle press in WordBank
-      updateSentenceWordBank(itemKey, { word: word, isUsed: true });
+      multipleOptionsMap.forEach((value, key) => {
+        updateMultipleOptionsMap(key, {
+          ...value,
+          isSelected: value.word === word,
+        });
+      });
       // appendWord(itemKey);
     }
   };
@@ -23,10 +27,10 @@ const PillMultipleChoice = ({ itemKey }: PillMultipleChoiceProps) => {
   return (
     <S.Container
       onPress={handlePress}
-      selected={wordObj?.isUsed}
+      selected={wordObj?.isSelected}
       // disabled={wordObj?.isUsed && inBank}
     >
-      <S.Text selected={wordObj?.isUsed}>{word}</S.Text>
+      <S.Text selected={wordObj?.isSelected}>{word}</S.Text>
     </S.Container>
   );
 };

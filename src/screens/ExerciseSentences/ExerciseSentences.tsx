@@ -23,11 +23,7 @@ const ExerciseSentences = ({ navigation }) => {
         </S.CenterContainer>
         <WordBank />
       </S.Container>
-      <Button
-        text="Správne! Pokračovať"
-        onPress={handleContinuePress}
-        type="default"
-      />
+      <Button text="Potvrdiť" onPress={handleContinuePress} type="default" />
       <BottomSafeArea />
     </S.Wrapper>
   );

@@ -14,7 +14,7 @@ export interface PillWordTranslateProps {
   text: string;
   isActive: boolean;
   isCorrect?: boolean;
-  returnActive: (item: string) => void;
+  type: 'key' | 'val';
 }
 
 export interface PillWordBankProps {
@@ -44,20 +44,34 @@ export interface ExerciseWordsContextValue {
   setIsCorrect: (input: boolean) => void;
 }
 
-export interface ExerciseSentencesWordObject {
+export interface SentencesWordValueObject {
   word: string;
   isUsed: boolean;
 }
 
-export type SentenceWordBank = Map<string, ExerciseSentencesWordObject>;
+export interface MultipleOptionsValueObject {
+  word: string;
+  isSelected: boolean;
+}
+
+export type TranslateWordsMap = Map<string, string>;
+export type SentenceWordMap = Map<string, SentencesWordValueObject>;
+export type MultipleOptionsMap = Map<string, MultipleOptionsValueObject>;
 
 export interface ExerciseProviderOutput {
   answer: Array<string>;
   setAnswer: (item: Array<string>) => void;
+  activeKey: string;
+  setActiveKey: (item: string) => void;
+  activeVal: string;
+  setActiveVal: (item: string) => void;
   appendWord: (item: string) => void;
   removeWord: (item: string) => void;
-  sentenceWordBank: SentenceWordBank;
-  updateSentenceWordBank: (k: string, v: ExerciseSentencesWordObject) => void;
+  translateWordsMap: TranslateWordsMap;
+  sentenceWordMap: SentenceWordMap;
+  updateSentenceWordMap: (k: string, v: SentencesWordValueObject) => void;
+  multipleOptionsMap: MultipleOptionsMap;
+  updateMultipleOptionsMap: (k: string, v: MultipleOptionsValueObject) => void;
 }
 
 export type ExerciseAnswer = Array<string>;

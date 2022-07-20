@@ -2,8 +2,11 @@ import React, { createContext, useContext, useState } from 'react';
 import {
   ExerciseAnswer,
   ExerciseProviderOutput,
-  ExerciseSentencesWordObject,
-  SentenceWordBank,
+  MultipleOptionsMap,
+  MultipleOptionsValueObject,
+  SentencesWordValueObject,
+  SentenceWordMap,
+  TranslateWordsMap,
 } from '../common/interfaces';
 
 // @ts-ignore
@@ -13,9 +16,21 @@ const useExercise = () => useContext(ExerciseContext);
 
 const ExerciseProvider = ({ children }) => {
   const [answer, setAnswer] = useState<ExerciseAnswer>([]);
+  const [activeKey, setActiveKey] = useState<string>('');
+  const [activeVal, setActiveVal] = useState<string>('');
 
-  const [sentenceWordBank, setSentenceWordBank] = useState<SentenceWordBank>(
-    new Map<string, ExerciseSentencesWordObject>([
+  const [translateWordsMap] = useState<TranslateWordsMap>(
+    new Map<string, string>([
+      ['slovo 1', 'preklad 1'],
+      ['slovo 2', 'preklad 2'],
+      ['slovo 3', 'preklad 3'],
+      ['slovo 4', 'preklad 4'],
+      ['slovo 5', 'preklad 5'],
+    ]),
+  );
+
+  const [sentenceWordMap, setSentenceWordMap] = useState<SentenceWordMap>(
+    new Map<string, SentencesWordValueObject>([
       ['0', { word: 'a', isUsed: false }],
       ['1', { word: 'word1', isUsed: false }],
       ['2', { word: 'longWord', isUsed: false }],
@@ -26,6 +41,15 @@ const ExerciseProvider = ({ children }) => {
     ]),
   );
 
+  const [multipleOptionsMap, setMultipleOptionsMap] =
+    useState<MultipleOptionsMap>(
+      new Map<string, MultipleOptionsValueObject>([
+        ['0', { word: 'prelozena veta 1', isSelected: false }],
+        ['1', { word: 'dhsia prelozena veta, dlha', isSelected: false }],
+        ['2', { word: 'mega extra obycajne dlha veta', isSelected: false }],
+      ]),
+    );
+
   const appendWord = (item: string) => {
     setAnswer(answer => [...answer, item]);
   };
@@ -34,11 +58,15 @@ const ExerciseProvider = ({ children }) => {
     setAnswer(answer => answer.filter(i => i != item));
   };
 
-  const updateSentenceWordBank = (
+  const updateSentenceWordMap = (k: string, v: SentencesWordValueObject) => {
+    setSentenceWordMap(new Map(sentenceWordMap.set(k, v)));
+  };
+
+  const updateMultipleOptionsMap = (
     k: string,
-    v: ExerciseSentencesWordObject,
+    v: MultipleOptionsValueObject,
   ) => {
-    setSentenceWordBank(new Map(sentenceWordBank.set(k, v)));
+    setMultipleOptionsMap(new Map(multipleOptionsMap.set(k, v)));
   };
 
   return (
@@ -46,10 +74,17 @@ const ExerciseProvider = ({ children }) => {
       value={{
         answer,
         setAnswer,
+        activeKey,
+        setActiveKey,
+        activeVal,
+        setActiveVal,
         appendWord,
         removeWord,
-        sentenceWordBank,
-        updateSentenceWordBank,
+        translateWordsMap,
+        sentenceWordMap,
+        updateSentenceWordMap,
+        multipleOptionsMap,
+        updateMultipleOptionsMap,
       }}>
       {children}
     </ExerciseContext.Provider>

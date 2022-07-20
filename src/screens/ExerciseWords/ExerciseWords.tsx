@@ -1,34 +1,33 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import Button from '../../components/atoms/Button/Button';
 import PillWordTranslate from '../../components/atoms/PillWordTranslate/PillWordTranslate';
+import { useExercise } from '../../providers/ExerciseProvider';
 import { shuffle } from '../../utils/shuffleArray';
 import * as S from './ExerciseWords.styles';
 
-const mockData = {
-  'slovo 1': 'preklad 1',
-  'slovo 2': 'preklad 2',
-  'slovo 3': 'preklad 3',
-  'slovo 4': 'preklad 4',
-  'slovo 5': 'preklad 5',
-};
-
 const ExerciseWords = ({ navigation }) => {
-  const [activeKey, setActiveKey] = useState('');
-  const [activeVal, setActiveVal] = useState('');
+  const {
+    activeKey,
+    activeVal,
+    setActiveKey,
+    setActiveVal,
+    translateWordsMap,
+  } = useExercise();
   const [isCorrect, setIsCorrect] = useState(false);
   const [nOfCompleted, setNOfCompleted] = useState(0);
 
-  const [shuffledKeys] = useState<string[]>(shuffle(Object.keys(mockData)));
-  const [shuffledVals] = useState<string[]>(shuffle(Object.values(mockData)));
-
-  const getActiveKey = useCallback((item: string) => setActiveKey(item), []);
-  const getActiveVal = useCallback((item: string) => setActiveVal(item), []);
+  const [shuffledKeys] = useState<string[]>(
+    shuffle([...translateWordsMap.keys()]),
+  );
+  const [shuffledVals] = useState<string[]>(
+    shuffle([...translateWordsMap.values()]),
+  );
 
   useEffect(() => {
     setIsCorrect(false);
     if (activeKey && activeVal) {
-      if (mockData[activeKey] === activeVal) {
+      if (translateWordsMap.get(activeKey) === activeVal) {
         setIsCorrect(true);
         setNOfCompleted(nOfCompleted + 1);
       } else {
@@ -40,31 +39,33 @@ const ExerciseWords = ({ navigation }) => {
 
   return (
     <S.Container>
-      <S.Text>Spoj slovo s jeho prekladom</S.Text>
-      <S.PillsContainer>
-        <S.LeftColumn>
-          {shuffledKeys.map(item => (
-            <PillWordTranslate
-              key={item}
-              text={item}
-              returnActive={getActiveKey}
-              isActive={activeKey === item}
-              isCorrect={isCorrect && activeKey === item}
-            />
-          ))}
-        </S.LeftColumn>
-        <S.RightColumn>
-          {shuffledVals.map(item => (
-            <PillWordTranslate
-              key={item}
-              text={item}
-              returnActive={getActiveVal}
-              isActive={activeVal === item}
-              isCorrect={isCorrect && activeVal === item}
-            />
-          ))}
-        </S.RightColumn>
-      </S.PillsContainer>
+      <S.CenterContainer>
+        <S.Text>Spoj slovo s jeho prekladom</S.Text>
+        <S.PillsContainer>
+          <S.LeftColumn>
+            {shuffledKeys.map(item => (
+              <PillWordTranslate
+                key={item}
+                text={item}
+                type="key"
+                isActive={activeKey === item}
+                isCorrect={isCorrect && activeKey === item}
+              />
+            ))}
+          </S.LeftColumn>
+          <S.RightColumn>
+            {shuffledVals.map(item => (
+              <PillWordTranslate
+                key={item}
+                text={item}
+                type="val"
+                isActive={activeVal === item}
+                isCorrect={isCorrect && activeVal === item}
+              />
+            ))}
+          </S.RightColumn>
+        </S.PillsContainer>
+      </S.CenterContainer>
       <Button
         text="Správne! Pokračovať"
         onPress={() => navigation.navigate('Home')}
