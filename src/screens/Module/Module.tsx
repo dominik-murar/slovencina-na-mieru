@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './Module.styles';
 import OutlinedCard from '../../components/atoms/OutlinedCard/OutlinedCard';
 import Button from '../../components/atoms/Button/Button';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import { ScreenNames } from '../../common/enum';
+import { useFirebase } from '../../providers/FirebaseProvider';
+import { ActivityIndicator } from 'react-native';
 
 const Module = ({ navigation }) => {
+  const { getModule, loading } = useFirebase();
+  useEffect(() => {
+    getModule('1');
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <S.ScrollView>
       <S.Container>
