@@ -4,8 +4,8 @@ import PillWordBank from '../../atoms/PillWordBank/PillWordBank';
 import { useExercise } from '../../../providers/ExerciseProvider';
 
 const WordBank = () => {
-  const { sentenceWordMap } = useExercise();
-  const keys = [...sentenceWordMap.keys()];
+  const { sentenceWordsMap } = useExercise();
+  const keys = [...sentenceWordsMap.keys()];
 
   return (
     <S.Container>

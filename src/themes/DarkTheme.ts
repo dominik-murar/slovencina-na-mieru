@@ -9,6 +9,7 @@ const DarkTheme: CustomTheme = {
     primary: '#1E5B9F',
     primaryOpaq: '#1E5B9F99',
     secondary: '#D64B4B',
+    tertiary: '#F2D372',
     success: '#5e9183',
     background: '#121212',
     text: '#ffffff',

@@ -14,8 +14,6 @@ export const Container = styled.TouchableOpacity<IContainer>`
   background-color: ${({ backgroundColor }) => backgroundColor};
   padding: 16px;
   margin-bottom: 16px;
-  margin-horizontal: 0px;
-  align-self: baseline;
 `;
 
 export const Text = styled.Text<IText>`

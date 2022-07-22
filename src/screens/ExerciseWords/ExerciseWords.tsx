@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import Button from '../../components/atoms/Button/Button';
+import FulscreenLoader from '../../components/atoms/FullscreenLoader/FullscreenLoader';
 import PillWordTranslate from '../../components/atoms/PillWordTranslate/PillWordTranslate';
 import { useExercise } from '../../providers/ExerciseProvider';
 import { shuffle } from '../../utils/shuffleArray';
@@ -8,6 +9,8 @@ import * as S from './ExerciseWords.styles';
 
 const ExerciseWords = ({ navigation }) => {
   const {
+    loading,
+    setExerciseType,
     activeKey,
     activeVal,
     setActiveKey,
@@ -17,12 +20,17 @@ const ExerciseWords = ({ navigation }) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [nOfCompleted, setNOfCompleted] = useState(0);
 
-  const [shuffledKeys] = useState<string[]>(
-    shuffle([...translateWordsMap.keys()]),
+  const shuffledKeys = useMemo(
+    () => shuffle([...translateWordsMap.keys()]),
+    [translateWordsMap],
   );
-  const [shuffledVals] = useState<string[]>(
-    shuffle([...translateWordsMap.values()]),
+  const shuffledVals = useMemo(
+    () => shuffle([...translateWordsMap.values()]),
+    [translateWordsMap],
   );
+
+  useEffect(() => setExerciseType('words'), []);
+  console.log('WORDS', translateWordsMap);
 
   useEffect(() => {
     setIsCorrect(false);
@@ -37,8 +45,12 @@ const ExerciseWords = ({ navigation }) => {
     }
   }, [activeKey, activeVal]);
 
+  if (loading) {
+    return <FulscreenLoader />;
+  }
+
   return (
-    <S.Container>
+    <S.Container alwaysBouncesVertical={false}>
       <S.CenterContainer>
         <S.Text>Spoj slovo s jeho prekladom</S.Text>
         <S.PillsContainer>

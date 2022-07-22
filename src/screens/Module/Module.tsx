@@ -5,7 +5,7 @@ import Button from '../../components/atoms/Button/Button';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import { ScreenNames } from '../../common/enum';
 import { useFirebase } from '../../providers/FirebaseProvider';
-import { ActivityIndicator } from 'react-native';
+import FullscreenLoader from '../../components/atoms/FullscreenLoader/FullscreenLoader';
 
 const Module = ({ navigation }) => {
   const { getModule, loading } = useFirebase();
@@ -14,7 +14,7 @@ const Module = ({ navigation }) => {
   }, []);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return <FullscreenLoader />;
   }
 
   return (

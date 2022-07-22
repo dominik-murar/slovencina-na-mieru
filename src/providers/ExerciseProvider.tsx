@@ -1,13 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   ExerciseAnswer,
   ExerciseProviderOutput,
+  ExerciseType,
   MultipleOptionsMap,
   MultipleOptionsValueObject,
   SentencesWordValueObject,
-  SentenceWordMap,
+  SentenceWordsMap,
   TranslateWordsMap,
 } from '../common/interfaces';
+import { shuffle } from '../utils/shuffleArray';
+import { useFirebase } from './FirebaseProvider';
 
 // @ts-ignore
 const ExerciseContext = createContext<ExerciseProviderOutput>({});
@@ -15,30 +18,23 @@ const ExerciseContext = createContext<ExerciseProviderOutput>({});
 const useExercise = () => useContext(ExerciseContext);
 
 const ExerciseProvider = ({ children }) => {
+  const { wordsMap, sentencesMap, questionsMap } = useFirebase();
+  const [loading, setLoading] = useState(true);
+  const [exerciseType, setExerciseType] = useState<ExerciseType | undefined>(
+    undefined,
+  );
   const [answer, setAnswer] = useState<ExerciseAnswer>([]);
+  const [correctAnswer, setCorrectAnswer] = useState<string>('');
+  const [assignment, setAssignment] = useState<string>('');
   const [activeKey, setActiveKey] = useState<string>('');
   const [activeVal, setActiveVal] = useState<string>('');
 
-  const [translateWordsMap] = useState<TranslateWordsMap>(
-    new Map<string, string>([
-      ['slovo 1', 'preklad 1'],
-      ['slovo 2', 'preklad 2'],
-      ['slovo 3', 'preklad 3'],
-      ['slovo 4', 'preklad 4'],
-      ['slovo 5', 'preklad 5'],
-    ]),
+  const [translateWordsMap, setTranslateWordsMap] = useState<TranslateWordsMap>(
+    new Map<string, string>(),
   );
 
-  const [sentenceWordMap, setSentenceWordMap] = useState<SentenceWordMap>(
-    new Map<string, SentencesWordValueObject>([
-      ['0', { word: 'a', isUsed: false }],
-      ['1', { word: 'word1', isUsed: false }],
-      ['2', { word: 'longWord', isUsed: false }],
-      ['3', { word: 'wrd', isUsed: false }],
-      ['4', { word: 'wooord', isUsed: false }],
-      ['5', { word: 'wwrrddd', isUsed: false }],
-      ['6', { word: 'wow', isUsed: false }],
-    ]),
+  const [sentenceWordsMap, setSentenceWordsMap] = useState<SentenceWordsMap>(
+    new Map<string, SentencesWordValueObject>(),
   );
 
   const [multipleOptionsMap, setMultipleOptionsMap] =
@@ -58,8 +54,8 @@ const ExerciseProvider = ({ children }) => {
     setAnswer(answer => answer.filter(i => i != item));
   };
 
-  const updateSentenceWordMap = (k: string, v: SentencesWordValueObject) => {
-    setSentenceWordMap(new Map(sentenceWordMap.set(k, v)));
+  const updateSentenceWordsMap = (k: string, v: SentencesWordValueObject) => {
+    setSentenceWordsMap(new Map(sentenceWordsMap.set(k, v)));
   };
 
   const updateMultipleOptionsMap = (
@@ -69,11 +65,71 @@ const ExerciseProvider = ({ children }) => {
     setMultipleOptionsMap(new Map(multipleOptionsMap.set(k, v)));
   };
 
+  const prepareExerciseWords = () => {
+    setLoading(true);
+    const map = new Map();
+    const keys = [...wordsMap.keys()];
+    // TODO: add semi-random algorithm
+    for (let i = 0; i < 5; i++) {
+      const wordObj = wordsMap.get(keys[i]);
+      map.set(wordObj.ua[0], wordObj.sk[0]);
+    }
+    setTranslateWordsMap(map);
+    setLoading(false);
+  };
+
+  const prepareExerciseSentences = () => {
+    setLoading(true);
+    const map = new Map<string, SentencesWordValueObject>();
+    const keys = [...sentencesMap.keys()];
+    const key = keys[10]; // TODO: randomise
+    const sentenceObj = sentencesMap.get(key);
+    const sentence = sentenceObj.sk[0].replace(/[?!"',.]/gm, '');
+    setCorrectAnswer(sentence);
+    setAssignment(sentenceObj.ua[0]);
+    const sentenceArray = shuffle(sentence.split(' '));
+    for (let i = 0; i < sentenceArray.length; i++) {
+      map.set(i.toString(), { word: sentenceArray[i], isUsed: false });
+    }
+    setSentenceWordsMap(map);
+    setLoading(false);
+  };
+
+  const prepareExerciseQuestions = () => {
+    setLoading(true);
+    const map = new Map<string, SentencesWordValueObject>();
+    const keys = [...questionsMap.keys()];
+    const key = keys[9]; // TODO: randomise
+    const sentenceObj = sentencesMap.get(key);
+    const sentence = sentenceObj.ua[0].replace(/[?!"',.]/gm, '');
+    setCorrectAnswer(sentence);
+    setAssignment(sentenceObj.sk[0]);
+    const sentenceArray = shuffle(sentence.split(' '));
+    for (let i = 0; i < sentenceArray.length; i++) {
+      map.set(i.toString(), { word: sentenceArray[i], isUsed: false });
+    }
+    setSentenceWordsMap(map);
+    setLoading(false);
+  };
+
+  // const prepareExerciseStories = () => {}
+
+  useEffect(() => {
+    if (exerciseType === 'words') prepareExerciseWords();
+    if (exerciseType === 'sentences') prepareExerciseSentences();
+    if (exerciseType === 'questions') prepareExerciseQuestions();
+    setExerciseType(undefined);
+  }, [exerciseType]);
+
   return (
     <ExerciseContext.Provider
       value={{
+        loading,
+        setExerciseType,
         answer,
         setAnswer,
+        correctAnswer,
+        assignment,
         activeKey,
         setActiveKey,
         activeVal,
@@ -81,8 +137,8 @@ const ExerciseProvider = ({ children }) => {
         appendWord,
         removeWord,
         translateWordsMap,
-        sentenceWordMap,
-        updateSentenceWordMap,
+        sentenceWordsMap,
+        updateSentenceWordsMap,
         multipleOptionsMap,
         updateMultipleOptionsMap,
       }}>

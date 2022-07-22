@@ -31,10 +31,26 @@ export type CustomTheme = Theme & {
   colors: {
     primaryOpaq: string;
     secondary: string;
+    tertiary: string;
     success: string;
   };
 };
 
+// FIREBASE PROVIDER
+
+export type ModuleMap = Map<string, Object>;
+
+export interface FirebaseProviderOutput {
+  getModule: (number: string) => void;
+  wordsMap: ModuleMap;
+  sentencesMap: ModuleMap;
+  questionsMap: ModuleMap;
+  loading: boolean;
+  setLoading: (input: boolean) => void;
+}
+
+// EXERCISE PROVIDER
+export type ExerciseType = 'words' | 'sentences' | 'questions' | 'stories';
 export interface ExerciseWordsContextValue {
   activeKey: string;
   setActiveKey: (input: string) => void;
@@ -55,12 +71,16 @@ export interface MultipleOptionsValueObject {
 }
 
 export type TranslateWordsMap = Map<string, string>;
-export type SentenceWordMap = Map<string, SentencesWordValueObject>;
+export type SentenceWordsMap = Map<string, SentencesWordValueObject>;
 export type MultipleOptionsMap = Map<string, MultipleOptionsValueObject>;
 
 export interface ExerciseProviderOutput {
+  loading: boolean;
+  setExerciseType: (input: ExerciseType | undefined) => void;
   answer: Array<string>;
   setAnswer: (item: Array<string>) => void;
+  correctAnswer: string;
+  assignment: string;
   activeKey: string;
   setActiveKey: (item: string) => void;
   activeVal: string;
@@ -68,8 +88,8 @@ export interface ExerciseProviderOutput {
   appendWord: (item: string) => void;
   removeWord: (item: string) => void;
   translateWordsMap: TranslateWordsMap;
-  sentenceWordMap: SentenceWordMap;
-  updateSentenceWordMap: (k: string, v: SentencesWordValueObject) => void;
+  sentenceWordsMap: SentenceWordsMap;
+  updateSentenceWordsMap: (k: string, v: SentencesWordValueObject) => void;
   multipleOptionsMap: MultipleOptionsMap;
   updateMultipleOptionsMap: (k: string, v: MultipleOptionsValueObject) => void;
 }
