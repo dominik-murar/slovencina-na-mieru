@@ -51,7 +51,7 @@ const ExerciseProvider = ({ children }) => {
   };
 
   const removeWord = (item: string) => {
-    setAnswer(answer => answer.filter(i => i != item));
+    setAnswer(answer => answer.filter(i => i !== item));
   };
 
   const updateSentenceWordsMap = (k: string, v: SentencesWordValueObject) => {
