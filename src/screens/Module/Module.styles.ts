@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { StylesThemeProps } from '../../common/interfaces';
 
 export const Container = styled.View`
   flex: 1;
@@ -8,10 +9,12 @@ export const Container = styled.View`
 
 export const Categories = styled.View``;
 
-export const ScrollView = styled.ScrollView.attrs(({ theme }) => ({
-  contentContainerStyle: {
-    flexGrow: 1,
-    paddingHorizontal: 24,
-    backgroundColor: theme.colors.background,
-  },
-}))``;
+export const ScrollView = styled.ScrollView.attrs(
+  ({ theme }: StylesThemeProps) => ({
+    contentContainerStyle: {
+      flexGrow: 1,
+      paddingHorizontal: 24,
+      backgroundColor: theme.colors.background,
+    },
+  }),
+)``;

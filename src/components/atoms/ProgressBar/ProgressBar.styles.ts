@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
+import { CustomTheme } from '../../../common/interfaces';
 
 interface BarColor {
   isSolid?: boolean;
   width?: string;
+  theme: CustomTheme;
 }
 
 export const Bar = styled.View<BarColor>`

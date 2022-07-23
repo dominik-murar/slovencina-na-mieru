@@ -14,7 +14,7 @@ export interface PillWordTranslateProps {
   text: string;
   isActive: boolean;
   isCorrect?: boolean;
-  type: 'key' | 'val';
+  type: 'sk' | 'ua';
 }
 
 export interface PillWordBankProps {
@@ -32,9 +32,14 @@ export type CustomTheme = Theme & {
     primaryOpaq: string;
     secondary: string;
     tertiary: string;
+    tertiaryOpaq: string;
     success: string;
   };
 };
+
+export interface StylesThemeProps {
+  theme: CustomTheme;
+}
 
 // FIREBASE PROVIDER
 
@@ -50,7 +55,7 @@ export interface FirebaseProviderOutput {
 }
 
 // EXERCISE PROVIDER
-export type ExerciseType = 'words' | 'sentences' | 'questions' | 'stories';
+export type ExerciseCategory = 'words' | 'sentences' | 'questions' | 'stories';
 export interface ExerciseWordsContextValue {
   activeKey: string;
   setActiveKey: (input: string) => void;
@@ -76,7 +81,7 @@ export type MultipleOptionsMap = Map<string, MultipleOptionsValueObject>;
 
 export interface ExerciseProviderOutput {
   loading: boolean;
-  setExerciseType: (input: ExerciseType | undefined) => void;
+  setExerciseCategory: (input: ExerciseCategory | undefined) => void;
   answer: Array<string>;
   setAnswer: (item: Array<string>) => void;
   correctAnswer: string;

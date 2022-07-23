@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
-import { ButtonType } from '../../../common/interfaces';
+import { ButtonType, CustomTheme } from '../../../common/interfaces';
 
 interface Button {
   type: ButtonType;
   invisible: boolean;
+  theme: CustomTheme;
 }
 
 export const Container = styled.TouchableOpacity<Button>`

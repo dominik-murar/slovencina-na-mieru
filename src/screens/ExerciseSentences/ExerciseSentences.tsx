@@ -8,21 +8,18 @@ import FulscreenLoader from '../../components/atoms/FullscreenLoader/FullscreenL
 import * as S from './ExerciseSentences.styles';
 
 const ExerciseSentences = ({ navigation }) => {
-  const { setAnswer, assignment, setExerciseType, loading } = useExercise();
+  const { setAnswer, assignment, setExerciseCategory, loading } = useExercise();
 
   const handleContinuePress = () => {
     setAnswer([]);
     navigation.navigate('Home');
   };
 
-  useEffect(() => setExerciseType('sentences'), []);
-
-  if (loading) {
-    return <FulscreenLoader />;
-  }
+  useEffect(() => setExerciseCategory('sentences'), []);
 
   return (
     <S.Wrapper>
+      {loading ? <FulscreenLoader /> : null}
       <S.Container>
         <S.CenterContainer>
           <S.Text>{assignment}</S.Text>

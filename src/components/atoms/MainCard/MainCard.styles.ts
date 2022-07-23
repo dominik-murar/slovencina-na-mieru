@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
+import { CustomTheme, StylesThemeProps } from '../../../common/interfaces';
 
 interface CardProps {
   disabled: boolean;
+  theme: CustomTheme;
 }
 
 export const Card = styled.TouchableOpacity<CardProps>`
@@ -35,7 +37,7 @@ export const FeatureListItem = styled.Text`
   color: white;
 `;
 
-export const EnterButton = styled.View`
+export const EnterButton = styled.View<StylesThemeProps>`
   height: 40px;
   width: 40px;
   border-radius: 20px;

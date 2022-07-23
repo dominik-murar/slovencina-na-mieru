@@ -10,6 +10,7 @@ const LightTheme: CustomTheme = {
     primaryOpaq: '#1E5B9F99',
     secondary: '#D64B4B',
     tertiary: '#F2D372',
+    tertiaryOpaq: '#F2D37299',
     success: '#A1CEC1',
     background: '#ffffff',
     text: '#121212',

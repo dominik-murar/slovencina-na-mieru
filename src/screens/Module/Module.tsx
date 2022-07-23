@@ -13,12 +13,9 @@ const Module = ({ navigation }) => {
     getModule('1');
   }, []);
 
-  if (loading) {
-    return <FullscreenLoader />;
-  }
-
   return (
     <S.ScrollView>
+      {loading ? <FullscreenLoader /> : null}
       <S.Container>
         <S.Categories>
           <OutlinedCard

@@ -1,11 +1,14 @@
 import styled from 'styled-components/native';
+import { CustomTheme } from '../../../common/interfaces';
 
 interface IContainer {
   disabled: boolean;
   selected: boolean;
+  theme: CustomTheme;
 }
 interface IText {
   selected: boolean;
+  theme: CustomTheme;
 }
 
 export const Container = styled.TouchableOpacity<IContainer>`

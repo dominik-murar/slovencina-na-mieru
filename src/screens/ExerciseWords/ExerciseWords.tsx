@@ -10,7 +10,7 @@ import * as S from './ExerciseWords.styles';
 const ExerciseWords = ({ navigation }) => {
   const {
     loading,
-    setExerciseType,
+    setExerciseCategory,
     activeKey,
     activeVal,
     setActiveKey,
@@ -29,7 +29,7 @@ const ExerciseWords = ({ navigation }) => {
     [translateWordsMap],
   );
 
-  useEffect(() => setExerciseType('words'), []);
+  useEffect(() => setExerciseCategory('words'), []);
   console.log('WORDS', translateWordsMap);
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const ExerciseWords = ({ navigation }) => {
               <PillWordTranslate
                 key={item}
                 text={item}
-                type="key"
+                type="ua"
                 isActive={activeKey === item}
                 isCorrect={isCorrect && activeKey === item}
               />
@@ -70,7 +70,7 @@ const ExerciseWords = ({ navigation }) => {
               <PillWordTranslate
                 key={item}
                 text={item}
-                type="val"
+                type="sk"
                 isActive={activeVal === item}
                 isCorrect={isCorrect && activeVal === item}
               />

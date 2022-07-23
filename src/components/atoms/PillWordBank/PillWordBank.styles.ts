@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
+import { CustomTheme, StylesThemeProps } from '../../../common/interfaces';
 
 interface IContainer {
   disabled: boolean;
+  theme: CustomTheme;
 }
 
 export const Container = styled.TouchableOpacity<IContainer>`
@@ -16,7 +18,7 @@ export const Container = styled.TouchableOpacity<IContainer>`
   opacity: ${({ disabled }) => (disabled ? 0 : 1)};
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text<StylesThemeProps>`
   color: ${({ theme }) => theme.colors.text};
   font-size: 15px;
   font-weight: 500;

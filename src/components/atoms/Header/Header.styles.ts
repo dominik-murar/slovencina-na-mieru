@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import styled from 'styled-components/native';
+import { StylesThemeProps } from '../../../common/interfaces';
 
 export const Container = styled.View`
   width: 100%;
@@ -7,7 +8,7 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text<StylesThemeProps>`
   font-size: 20px;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.text};

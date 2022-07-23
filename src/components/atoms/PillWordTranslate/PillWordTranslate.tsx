@@ -15,18 +15,29 @@ const PillWordTranslate = ({
   const [state, setState] = useState<'default' | 'active' | 'correct'>(
     'default',
   );
-  const backgroundColor = {
+  const backgroundColorSK = {
     default: 'transparent',
     active: theme.colors.primary,
     correct: theme.colors.primaryOpaq,
   };
 
+  const backgroundColorUA = {
+    default: 'transparent',
+    active: theme.colors.tertiary,
+    correct: theme.colors.tertiaryOpaq,
+  };
+
+  const backgroundColor = {
+    sk: backgroundColorSK[state],
+    ua: backgroundColorUA[state],
+  };
+
   const setActive = useCallback(
     (value: string) => {
       switch (type) {
-        case 'key':
+        case 'ua':
           return setActiveKey(value);
-        case 'val':
+        case 'sk':
           return setActiveVal(value);
       }
     },
@@ -54,9 +65,10 @@ const PillWordTranslate = ({
 
   return (
     <S.Container
-      backgroundColor={backgroundColor[state]}
+      backgroundColor={backgroundColor[type]}
       onPress={handlePress}
-      disabled={state === 'correct'}>
+      disabled={state === 'correct'}
+      type={type}>
       <S.Text isDefault={state === 'default'}>{text}</S.Text>
     </S.Container>
   );

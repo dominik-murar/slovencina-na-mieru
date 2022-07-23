@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   ExerciseAnswer,
   ExerciseProviderOutput,
-  ExerciseType,
+  ExerciseCategory,
   MultipleOptionsMap,
   MultipleOptionsValueObject,
   SentencesWordValueObject,
@@ -20,9 +20,9 @@ const useExercise = () => useContext(ExerciseContext);
 const ExerciseProvider = ({ children }) => {
   const { wordsMap, sentencesMap, questionsMap } = useFirebase();
   const [loading, setLoading] = useState(true);
-  const [exerciseType, setExerciseType] = useState<ExerciseType | undefined>(
-    undefined,
-  );
+  const [exerciseCategory, setExerciseCategory] = useState<
+    ExerciseCategory | undefined
+  >(undefined);
   const [answer, setAnswer] = useState<ExerciseAnswer>([]);
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
   const [assignment, setAssignment] = useState<string>('');
@@ -115,17 +115,17 @@ const ExerciseProvider = ({ children }) => {
   // const prepareExerciseStories = () => {}
 
   useEffect(() => {
-    if (exerciseType === 'words') prepareExerciseWords();
-    if (exerciseType === 'sentences') prepareExerciseSentences();
-    if (exerciseType === 'questions') prepareExerciseQuestions();
-    setExerciseType(undefined);
-  }, [exerciseType]);
+    if (exerciseCategory === 'words') prepareExerciseWords();
+    if (exerciseCategory === 'sentences') prepareExerciseSentences();
+    if (exerciseCategory === 'questions') prepareExerciseQuestions();
+    setExerciseCategory(undefined);
+  }, [exerciseCategory]);
 
   return (
     <ExerciseContext.Provider
       value={{
         loading,
-        setExerciseType,
+        setExerciseCategory,
         answer,
         setAnswer,
         correctAnswer,

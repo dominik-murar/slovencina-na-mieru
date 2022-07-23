@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { StylesThemeProps } from '../../common/interfaces';
 
 export const Wrapper = styled.View`
   flex: 1;
@@ -14,7 +15,7 @@ export const CenterContainer = styled.View`
   justify-content: center;
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text<StylesThemeProps>`
   color: ${({ theme }) => theme.colors.text};
   font-size: 16px;
   font-style: italic;

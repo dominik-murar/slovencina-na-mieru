@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { StylesThemeProps } from '../../common/interfaces';
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -12,7 +13,7 @@ export const CenterContainer = styled.View`
   justify-content: center;
 `;
 
-export const Text = styled.Text`
+export const Text = styled.Text<StylesThemeProps>`
   color: ${({ theme }) => theme.colors.text};
   font-size: 16px;
   padding-bottom: 32px;

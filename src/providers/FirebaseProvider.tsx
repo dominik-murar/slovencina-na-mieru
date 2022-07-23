@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import { ExerciseType, ModuleMap } from '../common/interfaces';
+import { ExerciseCategory, ModuleMap } from '../common/interfaces';
 
 // @ts-ignore
 const FirebaseContext = createContext<FirebaseProviderOutput>();
@@ -14,7 +14,7 @@ const FirebaseProvider = ({ children }) => {
   // const [storiesMap, setStoriesMap] = useState(new Map());
   const [loading, setLoading] = useState(true);
 
-  const lessonTypes: ExerciseType[] = ['words', 'sentences', 'questions'];
+  const lessonTypes: ExerciseCategory[] = ['words', 'sentences', 'questions'];
   const setMap = (type: string, map: ModuleMap) => {
     if (type === 'words') setWordsMap(map);
     if (type === 'sentences') setSentencesMap(map);
