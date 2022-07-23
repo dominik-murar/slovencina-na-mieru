@@ -6,9 +6,11 @@ import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea
 import { ScreenNames } from '../../common/enum';
 import { useFirebase } from '../../providers/FirebaseProvider';
 import FullscreenLoader from '../../components/atoms/FullscreenLoader/FullscreenLoader';
+import { useExercise } from '../../providers/ExerciseProvider';
 
 const Module = ({ navigation }) => {
   const { getModule, loading } = useFirebase();
+  const { setExerciseCategory } = useExercise();
   useEffect(() => {
     getModule('1');
   }, []);
@@ -28,13 +30,19 @@ const Module = ({ navigation }) => {
             category="Vety"
             status={51}
             goal={60}
-            onPress={() => navigation.navigate(ScreenNames.ExerciseSentences)}
+            onPress={() => {
+              setExerciseCategory('sentences');
+              navigation.navigate(ScreenNames.ExerciseSentencesQuestions);
+            }}
           />
           <OutlinedCard
             category="Otázky a odpovede"
             status={5}
             goal={18}
-            onPress={() => navigation.navigate(ScreenNames.ExerciseQuestions)}
+            onPress={() => {
+              setExerciseCategory('questions');
+              navigation.navigate(ScreenNames.ExerciseSentencesQuestions);
+            }}
           />
           <OutlinedCard category="Príbeh" status={1} goal={1} />
         </S.Categories>

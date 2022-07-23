@@ -4,20 +4,21 @@ import { useExercise } from '../../../providers/ExerciseProvider';
 import * as S from './PillMultipleChoice.styles';
 
 const PillMultipleChoice = ({ itemKey }: PillMultipleChoiceProps) => {
-  const { multipleOptionsMap, updateMultipleOptionsMap } = useExercise();
+  const { setAnswer, multipleChoiceMap, updateMultipleChoiceMap } =
+    useExercise();
 
-  const wordObj = multipleOptionsMap.get(itemKey);
-  const word = wordObj?.word || '';
+  const phraseObj = multipleChoiceMap.get(itemKey);
+  const phrase = phraseObj?.phrase || '';
   const handlePress = () => {
-    if (wordObj?.isSelected) {
-      updateMultipleOptionsMap(itemKey, { word: word, isSelected: false });
-
+    if (phraseObj?.isSelected) {
+      updateMultipleChoiceMap(itemKey, { phrase: phrase, isSelected: false });
       // removeWord(itemKey);
     } else {
-      multipleOptionsMap.forEach((value, key) => {
-        updateMultipleOptionsMap(key, {
+      setAnswer(phrase);
+      multipleChoiceMap.forEach((value, key) => {
+        updateMultipleChoiceMap(key, {
           ...value,
-          isSelected: value.word === word,
+          isSelected: value.phrase === phrase,
         });
       });
       // appendWord(itemKey);
@@ -27,10 +28,10 @@ const PillMultipleChoice = ({ itemKey }: PillMultipleChoiceProps) => {
   return (
     <S.Container
       onPress={handlePress}
-      selected={wordObj?.isSelected}
+      selected={phraseObj?.isSelected}
       // disabled={wordObj?.isUsed && inBank}
     >
-      <S.Text selected={wordObj?.isSelected}>{word}</S.Text>
+      <S.Text selected={phraseObj?.isSelected}>{phrase}</S.Text>
     </S.Container>
   );
 };

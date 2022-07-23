@@ -1,13 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { MULTIPLE_CHOICE_N_OF_OPTIONS } from '../common/config';
 import {
-  ExerciseAnswer,
   ExerciseProviderOutput,
   ExerciseCategory,
-  MultipleOptionsMap,
-  MultipleOptionsValueObject,
-  SentencesWordValueObject,
-  SentenceWordsMap,
+  MultipleChoiceMap,
+  MultipleChoiceValueObject,
+  WordBankValueObject,
+  WordBankMap,
   TranslateWordsMap,
+  SentenceExerciseType,
 } from '../common/interfaces';
 import { shuffle } from '../utils/shuffleArray';
 import { useFirebase } from './FirebaseProvider';
@@ -23,7 +24,11 @@ const ExerciseProvider = ({ children }) => {
   const [exerciseCategory, setExerciseCategory] = useState<
     ExerciseCategory | undefined
   >(undefined);
-  const [answer, setAnswer] = useState<ExerciseAnswer>([]);
+  const [sentenceExerciseType, setSentenceExerciseType] = useState<
+    SentenceExerciseType | undefined
+  >(undefined);
+  const [answer, setAnswer] = useState<string>('');
+  const [answerArray, setAnswerArray] = useState<Array<string>>([]);
   const [correctAnswer, setCorrectAnswer] = useState<string>('');
   const [assignment, setAssignment] = useState<string>('');
   const [activeKey, setActiveKey] = useState<string>('');
@@ -33,36 +38,70 @@ const ExerciseProvider = ({ children }) => {
     new Map<string, string>(),
   );
 
-  const [sentenceWordsMap, setSentenceWordsMap] = useState<SentenceWordsMap>(
-    new Map<string, SentencesWordValueObject>(),
+  const [wordBankMap, setWordBankMap] = useState<WordBankMap>(
+    new Map<string, WordBankValueObject>(),
   );
 
-  const [multipleOptionsMap, setMultipleOptionsMap] =
-    useState<MultipleOptionsMap>(
-      new Map<string, MultipleOptionsValueObject>([
-        ['0', { word: 'prelozena veta 1', isSelected: false }],
-        ['1', { word: 'dhsia prelozena veta, dlha', isSelected: false }],
-        ['2', { word: 'mega extra obycajne dlha veta', isSelected: false }],
-      ]),
-    );
+  const [multipleChoiceMap, setMultipleChoiceMap] = useState<MultipleChoiceMap>(
+    new Map<string, MultipleChoiceValueObject>(),
+  );
 
   const appendWord = (item: string) => {
-    setAnswer(answer => [...answer, item]);
+    setAnswerArray(answerArray => [...answerArray, item]);
   };
 
   const removeWord = (item: string) => {
-    setAnswer(answer => answer.filter(i => i !== item));
+    setAnswerArray(answerArray => answerArray.filter(i => i !== item));
   };
 
-  const updateSentenceWordsMap = (k: string, v: SentencesWordValueObject) => {
-    setSentenceWordsMap(new Map(sentenceWordsMap.set(k, v)));
+  const updateWordBankMap = (k: string, v: WordBankValueObject) => {
+    setWordBankMap(new Map(wordBankMap.set(k, v)));
   };
 
-  const updateMultipleOptionsMap = (
-    k: string,
-    v: MultipleOptionsValueObject,
+  const updateMultipleChoiceMap = (k: string, v: MultipleChoiceValueObject) => {
+    setMultipleChoiceMap(new Map(multipleChoiceMap.set(k, v)));
+  };
+
+  const getAlternatives = (usedKey: string, keys: Array<string>) => {
+    const altArray: Array<string> = [];
+    if (exerciseCategory === 'sentences') {
+      for (let i = 0; i < MULTIPLE_CHOICE_N_OF_OPTIONS - 1; i++) {
+        altArray.push(sentencesMap.get(keys[i]).sk[0]);
+      }
+      return altArray;
+    }
+    if (exerciseCategory === 'questions') {
+      for (let i = 0; i < MULTIPLE_CHOICE_N_OF_OPTIONS - 1; i++) {
+        altArray.push(questionsMap.get(keys[i]).a.sk[0]);
+      }
+      return altArray;
+    }
+    return altArray;
+  };
+
+  const populateWordBankMap = (sentenceArray: Array<string>) => {
+    setSentenceExerciseType('wordBank');
+    const map = new Map<string, WordBankValueObject>();
+    for (let i = 0; i < sentenceArray.length; i++) {
+      map.set(i.toString(), { word: sentenceArray[i], isUsed: false });
+    }
+    setWordBankMap(map);
+  };
+  const populateMultipleChoiceMap = (
+    sentence: string,
+    usedKey: string,
+    keys: Array<string>,
   ) => {
-    setMultipleOptionsMap(new Map(multipleOptionsMap.set(k, v)));
+    setSentenceExerciseType('multipleChoice');
+    const map = new Map<string, MultipleChoiceValueObject>();
+    const alternatives: Array<string> = getAlternatives(usedKey, keys);
+
+    const options = shuffle([...alternatives, sentence]);
+    // for (let i = 0; i < MULTIPLE_CHOICE_N_OF_OPTIONS; i++) {
+    for (let i = 0; i < options.length; i++) {
+      map.set(i.toString(), { phrase: options[i], isSelected: false });
+    }
+    setMultipleChoiceMap(map);
   };
 
   const prepareExerciseWords = () => {
@@ -80,7 +119,6 @@ const ExerciseProvider = ({ children }) => {
 
   const prepareExerciseSentences = () => {
     setLoading(true);
-    const map = new Map<string, SentencesWordValueObject>();
     const keys = [...sentencesMap.keys()];
     const key = keys[10]; // TODO: randomise
     const sentenceObj = sentencesMap.get(key);
@@ -88,27 +126,23 @@ const ExerciseProvider = ({ children }) => {
     setCorrectAnswer(sentence);
     setAssignment(sentenceObj.ua[0]);
     const sentenceArray = shuffle(sentence.split(' '));
-    for (let i = 0; i < sentenceArray.length; i++) {
-      map.set(i.toString(), { word: sentenceArray[i], isUsed: false });
+    if (sentenceArray.length > 2) {
+      populateWordBankMap(sentenceArray);
+    } else {
+      populateMultipleChoiceMap(sentence, key, keys);
     }
-    setSentenceWordsMap(map);
     setLoading(false);
   };
 
   const prepareExerciseQuestions = () => {
     setLoading(true);
-    const map = new Map<string, SentencesWordValueObject>();
     const keys = [...questionsMap.keys()];
-    const key = keys[9]; // TODO: randomise
-    const sentenceObj = sentencesMap.get(key);
-    const sentence = sentenceObj.ua[0].replace(/[?!"',.]/gm, '');
+    const key = keys[2]; // TODO: randomise
+    const sentenceObj = questionsMap.get(key);
+    const sentence = sentenceObj.a.sk[0];
     setCorrectAnswer(sentence);
-    setAssignment(sentenceObj.sk[0]);
-    const sentenceArray = shuffle(sentence.split(' '));
-    for (let i = 0; i < sentenceArray.length; i++) {
-      map.set(i.toString(), { word: sentenceArray[i], isUsed: false });
-    }
-    setSentenceWordsMap(map);
+    setAssignment(sentenceObj.q.sk[0]);
+    populateMultipleChoiceMap(sentence, key, keys);
     setLoading(false);
   };
 
@@ -126,8 +160,11 @@ const ExerciseProvider = ({ children }) => {
       value={{
         loading,
         setExerciseCategory,
+        sentenceExerciseType,
         answer,
         setAnswer,
+        answerArray,
+        setAnswerArray,
         correctAnswer,
         assignment,
         activeKey,
@@ -137,10 +174,10 @@ const ExerciseProvider = ({ children }) => {
         appendWord,
         removeWord,
         translateWordsMap,
-        sentenceWordsMap,
-        updateSentenceWordsMap,
-        multipleOptionsMap,
-        updateMultipleOptionsMap,
+        wordBankMap,
+        updateWordBankMap,
+        multipleChoiceMap,
+        updateMultipleChoiceMap,
       }}>
       {children}
     </ExerciseContext.Provider>

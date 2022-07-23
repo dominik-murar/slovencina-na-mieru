@@ -4,12 +4,12 @@ import PillWordBank from '../../atoms/PillWordBank/PillWordBank';
 import * as S from './SentenceInput.styles';
 
 const SentenceInput = () => {
-  const { answer } = useExercise();
+  const { answerArray } = useExercise();
   return (
     <S.Container>
       <S.OutlinedField>
         <S.RowContainer>
-          {answer.map(key => (
+          {answerArray.map(key => (
             <PillWordBank key={key} itemKey={key} />
           ))}
         </S.RowContainer>

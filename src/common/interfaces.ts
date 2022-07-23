@@ -56,34 +56,33 @@ export interface FirebaseProviderOutput {
 
 // EXERCISE PROVIDER
 export type ExerciseCategory = 'words' | 'sentences' | 'questions' | 'stories';
-export interface ExerciseWordsContextValue {
-  activeKey: string;
-  setActiveKey: (input: string) => void;
-  activeVal: string;
-  setActiveVal: (input: string) => void;
-  isCorrect: boolean;
-  setIsCorrect: (input: boolean) => void;
-}
+export type SentenceExerciseType =
+  | 'multipleChoice'
+  | 'wordBank'
+  | 'keyboardInput';
 
-export interface SentencesWordValueObject {
+export interface WordBankValueObject {
   word: string;
   isUsed: boolean;
 }
 
-export interface MultipleOptionsValueObject {
-  word: string;
+export interface MultipleChoiceValueObject {
+  phrase: string;
   isSelected: boolean;
 }
 
 export type TranslateWordsMap = Map<string, string>;
-export type SentenceWordsMap = Map<string, SentencesWordValueObject>;
-export type MultipleOptionsMap = Map<string, MultipleOptionsValueObject>;
+export type WordBankMap = Map<string, WordBankValueObject>;
+export type MultipleChoiceMap = Map<string, MultipleChoiceValueObject>;
 
 export interface ExerciseProviderOutput {
   loading: boolean;
   setExerciseCategory: (input: ExerciseCategory | undefined) => void;
-  answer: Array<string>;
-  setAnswer: (item: Array<string>) => void;
+  sentenceExerciseType: SentenceExerciseType | undefined;
+  answer: string;
+  setAnswer: (item: string) => void;
+  answerArray: Array<string>;
+  setAnswerArray: (item: Array<string>) => void;
   correctAnswer: string;
   assignment: string;
   activeKey: string;
@@ -93,10 +92,8 @@ export interface ExerciseProviderOutput {
   appendWord: (item: string) => void;
   removeWord: (item: string) => void;
   translateWordsMap: TranslateWordsMap;
-  sentenceWordsMap: SentenceWordsMap;
-  updateSentenceWordsMap: (k: string, v: SentencesWordValueObject) => void;
-  multipleOptionsMap: MultipleOptionsMap;
-  updateMultipleOptionsMap: (k: string, v: MultipleOptionsValueObject) => void;
+  wordBankMap: WordBankMap;
+  updateWordBankMap: (k: string, v: WordBankValueObject) => void;
+  multipleChoiceMap: MultipleChoiceMap;
+  updateMultipleChoiceMap: (k: string, v: MultipleChoiceValueObject) => void;
 }
-
-export type ExerciseAnswer = Array<string>;

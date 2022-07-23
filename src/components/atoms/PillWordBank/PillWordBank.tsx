@@ -4,19 +4,19 @@ import { useExercise } from '../../../providers/ExerciseProvider';
 import * as S from './PillWordBank.styles';
 
 const PillWordBank = ({ itemKey, inBank }: PillWordBankProps) => {
-  const { appendWord, removeWord, sentenceWordsMap, updateSentenceWordsMap } =
+  const { appendWord, removeWord, wordBankMap, updateWordBankMap } =
     useExercise();
 
-  const wordObj = sentenceWordsMap.get(itemKey);
+  const wordObj = wordBankMap.get(itemKey);
   const word = wordObj?.word || '';
   const handlePress = () => {
     if (wordObj?.isUsed) {
       // handle press in Sentence Input box
-      updateSentenceWordsMap(itemKey, { word: word, isUsed: false });
+      updateWordBankMap(itemKey, { word: word, isUsed: false });
       removeWord(itemKey);
     } else {
       // handle press in WordBank
-      updateSentenceWordsMap(itemKey, { word: word, isUsed: true });
+      updateWordBankMap(itemKey, { word: word, isUsed: true });
       appendWord(itemKey);
     }
   };

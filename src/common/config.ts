@@ -1,0 +1,1 @@
+export const MULTIPLE_CHOICE_N_OF_OPTIONS = 3;

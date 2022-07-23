@@ -15,7 +15,7 @@ const data = [
     key: 2,
     module: 'MODUL 2',
     benefits: ['benefit 1', 'benefit 2', 'benefit 3'],
-    locked: false,
+    locked: true,
   },
   {
     key: 3,

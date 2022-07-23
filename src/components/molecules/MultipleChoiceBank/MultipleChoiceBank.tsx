@@ -4,8 +4,8 @@ import { useExercise } from '../../../providers/ExerciseProvider';
 import PillMultipleChoice from '../../atoms/PillMultipleChoice/PillMultipleChoice';
 
 const MultipleChoiceBank = () => {
-  const { multipleOptionsMap } = useExercise();
-  const keys = [...multipleOptionsMap.keys()];
+  const { multipleChoiceMap } = useExercise();
+  const keys = [...multipleChoiceMap.keys()];
 
   return (
     <S.Container>
