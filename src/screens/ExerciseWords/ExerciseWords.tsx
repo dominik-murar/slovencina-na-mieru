@@ -10,7 +10,6 @@ import * as S from './ExerciseWords.styles';
 const ExerciseWords = ({ navigation }) => {
   const {
     loading,
-    setExerciseCategory,
     activeKey,
     activeVal,
     setActiveKey,
@@ -28,9 +27,6 @@ const ExerciseWords = ({ navigation }) => {
     () => shuffle([...translateWordsMap.values()]),
     [translateWordsMap],
   );
-
-  useEffect(() => setExerciseCategory('words'), []);
-  console.log('WORDS', translateWordsMap);
 
   useEffect(() => {
     setIsCorrect(false);

@@ -41,8 +41,27 @@ export interface StylesThemeProps {
   theme: CustomTheme;
 }
 
-// FIREBASE PROVIDER
+// AUTH PROVIDER
 
+export type UserType = {
+  displayName: string;
+  email: string;
+  emailVerified: boolean;
+  isAnonymous: boolean;
+  metadata?: { creationTime: number; lastSignInTime: number };
+  phoneNumber?: string;
+  photoURL?: string;
+  providerData?: [[Object]];
+  providerId?: string;
+  tenantId?: any;
+  uid: string;
+};
+export interface AuthProviderOutput {
+  initializing: boolean;
+  user: UserType | null | undefined;
+}
+
+// FIREBASE PROVIDER
 export type ModuleMap = Map<string, Object>;
 
 export interface FirebaseProviderOutput {

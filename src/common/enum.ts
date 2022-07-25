@@ -3,4 +3,5 @@ export enum ScreenNames {
   Module = 'Module',
   ExerciseWords = 'ExerciseWords',
   ExerciseSentencesQuestions = 'ExerciseSentencesQuestions',
+  Settings = 'Settings',
 }

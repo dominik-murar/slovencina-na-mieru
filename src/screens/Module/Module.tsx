@@ -24,7 +24,10 @@ const Module = ({ navigation }) => {
             category="Slovná zásoba"
             status={12}
             goal={40}
-            onPress={() => navigation.navigate(ScreenNames.ExerciseWords)}
+            onPress={() => {
+              setExerciseCategory('words');
+              navigation.navigate(ScreenNames.ExerciseWords);
+            }}
           />
           <OutlinedCard
             category="Vety"
@@ -48,7 +51,9 @@ const Module = ({ navigation }) => {
         </S.Categories>
         <Button
           text="Náhodný výber"
-          onPress={() => navigation.navigate('ExerciseWords')}
+          onPress={() => {
+            navigation.navigate('ExerciseWords');
+          }}
         />
       </S.Container>
       <BottomSafeArea />

@@ -44,7 +44,7 @@ const Home = ({ navigation }) => {
       renderItem={({ item }) =>
         MainCard({ item: item, onPress: () => navigation.navigate('Module') })
       }
-      ListHeaderComponent={HomeHeader}
+      ListHeaderComponent={() => HomeHeader({ navigation })}
       ListFooterComponent={BottomSafeArea}
     />
   );

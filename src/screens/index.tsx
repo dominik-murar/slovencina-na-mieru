@@ -10,11 +10,21 @@ import Module from './Module/Module';
 import Header from '../components/atoms/Header/Header';
 import ExerciseWords from './ExerciseWords/ExerciseWords';
 import ExerciseSentencesQuestions from './ExerciseSentencesQuestions/ExerciseSentencesQuestions';
+import { useAuth } from '../providers/AuthProvider';
+import Login from './Login/Login';
+import Settings from './Settings/Settings';
 
 const Stack = createNativeStackNavigator();
 
 const Screens = () => {
   const theme = useTheme();
+  const { intializing, user } = useAuth();
+
+  if (intializing) return null;
+
+  if (!user) {
+    return <Login />;
+  }
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: theme.colors.background }}
@@ -51,6 +61,15 @@ const Screens = () => {
             options={{
               header: ({ navigation }) => (
                 <Header title="Sentences" navigation={navigation} />
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={{
+              header: ({ navigation }) => (
+                <Header title="Settings" navigation={navigation} />
               ),
             }}
           />
