@@ -8,6 +8,7 @@ import { ExerciseProvider } from './providers/ExerciseProvider';
 import { FirebaseProvider } from './providers/FirebaseProvider';
 import { ThemeProvider } from './providers/ThemeProvider';
 import Screens from './screens';
+import './translations';
 
 const App = () => {
   return (

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import Button from '../../components/atoms/Button/Button';
 import FulscreenLoader from '../../components/atoms/FullscreenLoader/FullscreenLoader';
@@ -16,6 +17,7 @@ const ExerciseWords = ({ navigation }) => {
     setActiveVal,
     translateWordsMap,
   } = useExercise();
+  const { t } = useTranslation();
   const [isCorrect, setIsCorrect] = useState(false);
   const [nOfCompleted, setNOfCompleted] = useState(0);
 
@@ -48,7 +50,7 @@ const ExerciseWords = ({ navigation }) => {
   return (
     <S.Container alwaysBouncesVertical={false}>
       <S.CenterContainer>
-        <S.Text>Spoj slovo s jeho prekladom</S.Text>
+        <S.Text>{t('exerciseWords.instructions')}</S.Text>
         <S.PillsContainer>
           <S.LeftColumn>
             {shuffledKeys.map(item => (
@@ -75,7 +77,7 @@ const ExerciseWords = ({ navigation }) => {
         </S.PillsContainer>
       </S.CenterContainer>
       <Button
-        text="Správne! Pokračovať"
+        text={t('common.buttonSuccess')}
         onPress={() => navigation.navigate('Home')}
         type="success"
         invisible={nOfCompleted < shuffledKeys.length}

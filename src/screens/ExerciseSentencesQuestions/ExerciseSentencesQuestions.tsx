@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import BottomSafeArea from '../../components/atoms/BottomSafeArea/BottomSafeArea';
 import Button from '../../components/atoms/Button/Button';
 import SentenceInput from '../../components/molecules/SentenceInput/SentenceInput';
@@ -20,6 +21,7 @@ const ExerciseSentences = ({ navigation }) => {
     wordBankMap,
     loading,
   } = useExercise();
+  const { t } = useTranslation();
 
   const [buttonAction, setButtonAction] = useState<
     'confirm' | 'correct' | 'failed'
@@ -63,17 +65,17 @@ const ExerciseSentences = ({ navigation }) => {
   useEffect(() => {
     switch (buttonAction) {
       case 'correct':
-        setButtonText('Správne! Pokračovať');
+        setButtonText(t('common.buttonSuccess'));
         setButtonOnPress(() => handlePressContinue);
         setButtonType('success');
         break;
       case 'failed':
-        setButtonText('Chyba! Pokračovať');
+        setButtonText(t('common.buttonWrong'));
         setButtonOnPress(() => handlePressContinue);
         setButtonType('default');
         break;
       default:
-        setButtonText('Potvrdiť');
+        setButtonText(t('common.buttonConfirm'));
         setButtonOnPress(() => handlePressConfirm);
         setButtonType('default');
         break;

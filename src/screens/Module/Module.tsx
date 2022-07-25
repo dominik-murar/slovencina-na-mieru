@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as S from './Module.styles';
 import OutlinedCard from '../../components/atoms/OutlinedCard/OutlinedCard';
 import Button from '../../components/atoms/Button/Button';
@@ -11,6 +12,7 @@ import { useExercise } from '../../providers/ExerciseProvider';
 const Module = ({ navigation }) => {
   const { getModule, loading } = useFirebase();
   const { setExerciseCategory } = useExercise();
+  const { t } = useTranslation();
   useEffect(() => {
     getModule('1');
   }, []);
@@ -21,7 +23,7 @@ const Module = ({ navigation }) => {
       <S.Container>
         <S.Categories>
           <OutlinedCard
-            category="Slovná zásoba"
+            category={t('module.vocabulary')}
             status={12}
             goal={40}
             onPress={() => {
@@ -30,7 +32,7 @@ const Module = ({ navigation }) => {
             }}
           />
           <OutlinedCard
-            category="Vety"
+            category={t('module.sentences')}
             status={51}
             goal={60}
             onPress={() => {
@@ -39,7 +41,7 @@ const Module = ({ navigation }) => {
             }}
           />
           <OutlinedCard
-            category="Otázky a odpovede"
+            category={t('module.qa')}
             status={5}
             goal={18}
             onPress={() => {
@@ -47,10 +49,10 @@ const Module = ({ navigation }) => {
               navigation.navigate(ScreenNames.ExerciseSentencesQuestions);
             }}
           />
-          <OutlinedCard category="Príbeh" status={1} goal={1} />
+          <OutlinedCard category={t('module.story')} status={1} goal={1} />
         </S.Categories>
         <Button
-          text="Náhodný výber"
+          text={t('module.buttonRandomChoice')}
           onPress={() => {
             navigation.navigate('ExerciseWords');
           }}
